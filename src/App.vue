@@ -1,31 +1,66 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <p>Hello ZHS</p>
-    <p>Hello HLM</p>
-    <p>Something happen "!!!!!"</p>
+
+    <app-nav :btnTodo="btnTodo" @btnTodos="btnTodo = $event"></app-nav>
+
+    <div class="col-md-8 offset-md-2 my-3">
+      <app-add-todo v-if="btnTodo" @newTodo="addTodo"></app-add-todo>
+    </div>
+    
+
+    <div class="col-md-8 offset-md-2">
+      <app-post :todos="todos" @del-todo="delTodo"></app-post>
+    </div>
+    
+    
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
+  import Nav from "./components/Navbar.vue"
+  import Post from "./components/Post.vue"
+  import AddTodo from "./components/AddTodo.vue"
+
+    export default {
+          components: {
+            appNav: Nav,
+            appPost: Post,
+            appAddTodo: AddTodo
+          },
+
+          data() {
+            return {
+              btnTodo: false,
+              todos: [
+                {
+                  id: '1',
+                  title: 'Something',
+                  body: 'Blah Blah Blah'
+                },
+                {
+                  id: '2',
+                  title: 'Something 2',
+                  body: 'Blah Blah Blah'
+                }
+              ]
+            }
+          },
+
+          methods: {
+            addTodo (todo) {
+              this.todos = [...this.todos, todo];
+            },
+
+            delTodo(id) {
+              this.todos = this.todos.filter(todo => todo.id !== id)
+            }
+          }
+
+    }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style
+
+
+</style>
