@@ -11,6 +11,8 @@
     <div class="col-md-8 offset-md-2">
       <app-post :todos="todos" @del-todo="delTodo"></app-post>
     </div>
+    <h1 v-for="editTodo in editTodos
+    ">{{ editTodo.id }}</h1>
     
     
   </div>
@@ -43,7 +45,8 @@
                   title: 'Something 2',
                   body: 'Blah Blah Blah'
                 }
-              ]
+              ],
+              editTodos:[]
             }
           },
 
@@ -53,7 +56,10 @@
             },
 
             delTodo(id) {
-              this.todos = this.todos.filter(todo => todo.id !== id)
+              //this.todos = this.todos.filter(todo => todo.id !== id)
+              this.editTodo = this.todos.filter(todo => todo.id == id);
+              console.log(this.editTodo)
+
             }
           }
 
